@@ -2,9 +2,13 @@ import numpy as np
 import pandas as pd
 import copy
 import random
+from random import shuffle
 
-population_size = 10
-mutation_rate = 0.5
+selection_rate = 0.4
+population_size = 500
+mutation_rate = 0.3
+
+parents = int(population_size * selection_rate)
 
 def generate_weights(shape):
     layer = []
@@ -32,6 +36,27 @@ def initial_population(model):
     for _ in range(population_size):
         chromosomes.append(generate_chromosome(model))
     return chromosomes
+
+def strongest_parents(population, scores):
+    scores_for_chromosomes = []
+    for i in range(0, len(population)):
+        scores_for_chromosomes.append(( population[i],scores[i] ))
+    scores_for_chromosomes.sort(key=lambda x: x[1])
+    top_performers = scores_for_chromosomes[-parents:]
+    return top_performers
+
+def pair(parents):
+    total_parents_score = sum([x[1] for x in parents])
+    pick = random.uniform(0, total_parents_score)
+    return [roulette_selection(parents, pick), roulette_selection(parents, pick)]
+
+def roulette_selection(parents, pick):
+    shuffle(parents)
+    current = 0
+    for parent in parents:
+        current += parent[1]
+        if current > pick:
+            return parent
 
 def crossover(x, y):
     offspring_x = x
