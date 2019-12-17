@@ -1,6 +1,5 @@
 from random import shuffle
 
-
 def Selection(algorithm):
     return roulette_selection
 

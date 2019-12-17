@@ -2,9 +2,9 @@ import numpy as np
 import pandas as pd
 import random
 
-from Selection import Selection
-from Crossover import Crossover
-from Mutation import Mutation
+from KerasGA.Selection import Selection
+from KerasGA.Crossover import Crossover
+from KerasGA.Mutation import Mutation
 
 class GeneticAlgorithm(object):
 
