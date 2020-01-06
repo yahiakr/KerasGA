@@ -23,13 +23,10 @@ If you are instead looking for a [Python application](https://caremad.io/posts/2
 
 ## Examples
 
-Here are a few sample projects based on this template:
+Here are a few projects based on this package:
 
-* [jacebrowning/minilog](https://github.com/jacebrowning/minilog)
-* [theovoss/Chess](https://github.com/theovoss/Chess)
-* [sprout42/StarStruct](https://github.com/sprout42/StarStruct)
-* [MichiganLabs/flask-gcm](https://github.com/MichiganLabs/flask-gcm)
-* [flask-restful/flask-restful](https://github.com/flask-restful/flask-restful)
+* [yahiakr/FlappyAI](https://github.com/yahiakr/FlappyAI)
+* [yahiakr/SnakeAI](https://github.com/yahiakr/SnakeAI)
 
 ## Usage
 
