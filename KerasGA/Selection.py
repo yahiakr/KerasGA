@@ -8,5 +8,5 @@ def roulette_selection(parents, pick):
     current = 0
     for parent in parents:
         current += parent[1]
-        if current > pick:
+        if current >= pick:
             return parent
