@@ -1,52 +1,64 @@
 # KerasGA
-
 A simple and easy-to-use implementation of Genetic Algorithm for Keras NN models in Python.
 
 ## Features
-
-* Preconfigured setup for [Travis CI](https://travis-ci.org/), [Coveralls](https://coveralls.io/), and [Scrutinizer](https://scrutinizer-ci.com/)
-* `pyproject.toml` for managing dependencies and package metadata
-* `Makefile` for automating common [development tasks](https://github.com/jacebrowning/template-python/blob/master/%7B%7Bcookiecutter.project_name%7D%7D/CONTRIBUTING.md):
-    - Installing dependencies with `poetry`
-    - Automatic formatting with `isort` and `black`
-    - Static analysis with `pylint`
-    - Type checking with `mypy`
-    - Docstring styling with `pydocstyle`
-    - Running tests with `pytest`
-    - Building documentation with `mkdocs`
-    - Publishing to PyPI using `poetry`
-    
-If you are instead looking for a [Python application](https://caremad.io/posts/2013/07/setup-vs-requirement/) template, check out one of the sibling projects:
-
-* [jacebrowning/template-django](https://github.com/jacebrowning/template-django)
-* [jacebrowning/template-flask](https://github.com/jacebrowning/template-flask)
+* create an initial population (of size: `population_size`) of randomly initialized chromosomes (i.e model weights).
+* You can adjust the `selection_rate` & the `mutation_rate`.
+* Perform the different GA operations (i.e Selection, Crossover, & Mutation).
 
 ## Examples
-
 Here are a few projects based on this package:
-
 * [yahiakr/FlappyAI](https://github.com/yahiakr/FlappyAI)
 * [yahiakr/SnakeAI](https://github.com/yahiakr/SnakeAI)
 
 ## Usage
-
-Install `cookiecutter` and generate a project:
-
+* Install `KerasGA` :
 ```
-$ pip install cookiecutter
-$ cookiecutter gh:jacebrowning/template-python -f
+$ pip install KerasGA
 ```
 
-Cookiecutter will ask you for some basic info (your name, project name, python package name, etc.) and generate a base Python project for you.
+* import `GeneticAlgorithm` from `KerasGA` and initiate an object :
+```python
+from KerasGA import GeneticAlgorithm
 
-If you still need to use legacy Python or `nose` as the test runner, older versions of this template are available on branches:
-
-```
-$ cookiecutter gh:jacebrowning/template-python -f --checkout=python2
-
-$ cookiecutter gh:jacebrowning/template-python -f --checkout=nose
+population_size =  10
+GA = GeneticAlgorithm(model, population_size = population_size, selection_rate = 0.1, mutation_rate = 0.2)
 ```
 
-## Updates
+**PS:** `model` is a Keras model.
 
-Checkout the appropriate branch of [template-python-demo](https://github.com/jacebrowning/template-python-demo) and manually merge changes into your project.
+* Generate the initial population:
+```python
+population = GA.initial_population()
+```
+* To set the wights of a model you can use `.set_weights()` built-in function:
+```python
+for chromosome in population:
+	model.set_weights(chromosome)
+	# then evaluate the chromosome (i.e assign its final score)
+```
+
+* After calculating the scores for each chromosome, it's time to select the top-performers:
+```python
+# Selection:
+# 'scores' is a list of length = population_size
+# 'top_performers' is a list of tuples: (chromosome, it's score)
+top_performers = GA.strongest_parents(population,scores)
+
+# Make pairs:
+# 'GA.pair' return a tuple of type: (chromosome, it's score)
+pairs = []
+while len(pairs) != GA.population_size:
+	pairs.append( GA.pair(top_performers) )
+
+# Crossover:
+base_offsprings =  []
+for pair in pairs:
+	offsprings = GA.crossover(pair[0][0], pair[1][0])
+	# 'offsprings' contains two chromosomes
+	base_offsprings.append(offsprings[-1])
+
+# Mutation:
+new_population = GA.mutation(base_offsprings)
+```
+And that's it :)
