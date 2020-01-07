@@ -11,12 +11,12 @@ setuptools.setup(
     description="A simple and easy-to-use implementation of Genetic Algorithm for Keras NN models in Python.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/yahiakr/GA_Keras_models",
+    url="https://github.com/yahiakr/KerasGA",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    python_requires='>=3.6',
+    python_requires='>=3',
 )
