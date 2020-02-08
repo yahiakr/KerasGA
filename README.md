@@ -2,7 +2,8 @@
 A simple and easy-to-use implementation of Genetic Algorithm for Keras NN models in Python.
 
 ## Features
-* create an initial population (of size: `population_size`) of randomly initialized chromosomes (i.e model weights).
+* Instead of using backpropagation, use Genetic Algorithm to update the parameters/weights of the neural network while training the model.
+* Create an initial population (of size: `population_size`) of randomly initialized chromosomes (i.e model weights).
 * You can adjust the `selection_rate` & the `mutation_rate`.
 * Perform the different GA operations (i.e Selection, Crossover, & Mutation).
 
